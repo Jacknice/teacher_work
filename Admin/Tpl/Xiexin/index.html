@@ -1,0 +1,183 @@
+<include file="Public:header" />
+
+<!--页面显示全部-->
+<div id="wrapper">
+	<!-- 左边导航部分/.modal -->
+	<include file="Public:left" />
+	<!--右边显示部分-->
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<include file="Public:top" />
+		<!--写信-->
+		<div id="mail_compose" class="right" style="display: block;">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h2>邮箱</h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="index.html">主页</a>
+						</li>
+						<li>
+							<a>邮箱</a>
+						</li>
+						<li>
+							<strong>写信</strong>
+						</li>
+					</ol>
+				</div>
+				<div class="col-lg-2">
+
+				</div>
+			</div>
+			<div class="wrapper wrapper-content">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>头像上传编辑</h5>
+
+								<div class="ibox-tools">
+									<a class="collapse-link">
+										<i class="fa fa-chevron-up"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-user">
+										<li>
+											<a href="form_editors.html#">选项1</a>
+										</li>
+										<li>
+											<a href="form_editors.html#">选项2</a>
+										</li>
+									</ul>
+									<a class="close-link">
+										<i class="fa fa-times"></i>
+									</a>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div class="row">
+									<div class="col-sm-12 animated fadeInRight">
+										<div class="mail-box-header">
+											<h2>写信</h2>
+										</div>
+										<div class="mail-box">
+
+											<div class="mail-body">
+
+												<form class="form-horizontal" method="get">
+													<div class="form-group">
+														<label class="col-sm-2 control-label">发送到：</label>
+
+														<div class="col-sm-10">
+															<input type="text" class="form-control" id="send_user" data-provide="typeahead" data-items="4">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-2 control-label">主题：</label>
+
+														<div class="col-sm-10">
+															<input type="text" id="theme" class="form-control" value="">
+														</div>
+													</div>
+												</form>
+
+											</div>
+
+											<div class="mail-text h-200">
+
+												<div class="summernote">
+													<p></p>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+											<div class="mail-body text-right tooltip-demo">
+												<a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send"><i class="fa fa-reply"></i> 发送</a>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:bottom" />
+<script>
+	//发邮件
+	$("a[title='Send']").on("click", function() {
+		var received = $("#send_user").val()
+		var theme = $("#theme").val()
+		var content = encodeURIComponent($(".note-editable").html());
+		var send = localStorage.u_name;
+		var oDate = new Date();
+		var sendtime = oDate.getTime();
+		var isread = "否";
+		$.ajax({
+			url: "__URL__/send?send=" + send + "&received=" + received + "&theme=" + theme + "&content=" + content + "&sendtime=" + sendtime + "&isread=" + isread + "&num=" + 1,
+			dataType: 'text',
+			type: "POST",
+			success: function(data) {
+				if(data == 1) {
+					swal({
+							title: "邮件发送成功!!!",
+							text: "",
+							type: "success",
+							showCancelButton: false,
+							confirmButtonColor: "#AEDEF4",
+							confirmButtonText: "确定",
+							closeOnConfirm: true,
+							closeOnCancel: true
+						},
+						function(isConfirm) {
+							if(isConfirm) {
+								window.location = "__URL__";
+							};
+						}
+					)
+				}
+			}
+		});
+
+	});
+
+	$(document).ready(function() {
+		$(".i-checks").iCheck({
+			checkboxClass: "icheckbox_square-green",
+			radioClass: "iradio_square-green",
+		});
+		$(".summernote").summernote({
+			lang: "zh-CN"
+		})
+	});
+	var edit = function() {
+		$(".click2edit").summernote({
+			focus: true
+		})
+	};
+	var save = function() {
+		var aHTML = $(".click2edit").code();
+		$(".click2edit").destroy()
+	};
+	(function() {
+		$.ajax({
+			url: "__URL__/selectUser",
+			type: "GET",
+			success: function(data) {
+				var users = [];
+				for(var i = 0; i < data.length; i++) {
+					users.push(data[i].u_name);
+				}
+				$('#send_user').typeahead({
+					source: users
+				});
+			}
+		});
+	}());
+</script>
+
+</body>
+
+</html>

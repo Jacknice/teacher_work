@@ -1,0 +1,394 @@
+<include file="Public:header" />
+<!--页面显示全部-->
+<div id="wrapper">
+	<!-- 左边导航部分/.modal -->
+	<include file="Public:left" />
+	<!--右边显示部分-->
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<include file="Public:top" />
+		<!--核算图表-->
+		<div id="tubiao" class="right" style="display: block" ;>
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-12">
+					<h2>工作量分配图</h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="index.html">主页</a>
+						</li>
+						<li>
+							<a>工作量分配图</a>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12 data_show">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>数据展示</h5>
+
+								<div class="ibox-tools">
+									<a class="collapse-link">
+										<i class="fa fa-chevron-up"></i>
+									</a>
+									<a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+										<i class="fa fa-wrench"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-user">
+										<li>
+											<a href="#">选项1</a>
+										</li>
+										<li>
+											<a href="#">选项2</a>
+										</li>
+									</ul>
+									<a class="close-link">
+										<i class="fa fa-times"></i>
+									</a>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div class="col-sm-3 m-b-xs">
+									<select class="input-sm form-control input-s-sm inline" name="" id="show_type">
+										<option value="column2d">column2d</option>
+										<option value="column3d">column3d</option>
+										<option value="bar2d">bar2d</option>
+										<option value="bar3d">bar3d</option>
+										<option value="pie2d">pie2d</option>
+										<option value="pie3d">pie3d</option>
+										<option value="doughnut2d">doughnut2d</option>
+										<option value="doughnut3d">doughnut3d</option>
+									</select>
+								</div>
+								<a href="__PUBLIC__/Download/detail_hesuan.doc" class="pull-right">核算详细过程</a>
+								<button type="button" class="btn btn-outline btn-primary get_show_type">确定</button>
+								<div style="text-align: center;margin-top: 1em;font-size:2em">
+									教师工作量分配图表
+								</div>
+								<div id="container-teach-work-svg" style="text-align: center;margin-top: 2em;position: relative;">
+									<button type="button" class="btn btn-outline btn-primary show1">提交核算</button> <br /> <b style="color: red;">特别提示：</b><span style="color: #F43838;">点击此按钮前请确定你的工作量是否已经全部审核完毕，此按钮只能点击一次。</span>
+								</div>
+								<br />
+
+								<div id='detail_table' style="display: none" ;>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工作量明细：
+									<table id="work_num_add" class="table table-striped table-bordered table-hover">
+										<thead>
+											<tr>
+												<th class="text-center">学期</th>
+												<th class='text-center'>姓名</th>
+												<th class='text-center'>理论教学</th>
+												<th class='text-center'>实验教学</th>
+												<th class='text-center'>实践教学</th>
+												<th class='text-center'>补贴</th>
+												<th class='text-center'>额外工作量</th>
+												<th class='text-center'>额定工作量</th>
+												<th class='text-center'>完成工作量</th>
+												<th class='text-center'>是否达标</th>
+											</tr>
+										</thead>
+									</table>
+									<ul class="tree">
+										<li><span class="opened" onclick="toggle(this)">理论教学</span>
+											<ul class="show">
+												<li>
+													您的理论教学工作量是：<span class="ll"></span>
+													<table id="lilun" class="table table-striped table-bordered table-hover">
+														<thead>
+															<tr>
+																<th class='text-center'>课程名</th>
+																<th class='text-center'>课程类型</th>
+																<th class='text-center'>学时</th>
+																<th class='text-center'>周数</th>
+																<th class='text-center'>班级</th>
+																<th class='text-center'>额定人数</th>
+																<th class='text-center'>实际人数</th>
+																<th class='text-center'>重修</th>
+																<th class='text-center'>核心课程</th>
+																<th class='text-center'>优质课程</th>
+																<th class='text-center'>系数K</th>
+																<th class='text-center'>系数R</th>
+																<th class='text-center'>系数N</th>
+																<th class='text-center'>工作量</th>
+															</tr>
+														</thead>
+													</table>
+												</li>
+											</ul>
+										</li>
+										<li><span class="opened" onclick="toggle(this)">实验教学</span>
+											<ul class="show">
+												<li>
+													您的实验教学工作量是：<span class="sy"></span>
+													<table id="shiyan" class="table table-striped table-bordered table-hover">
+														<thead>
+															<tr>
+																<th class='text-center'>课程名</th>
+																<th class='text-center'>专业</th>
+																<th class='text-center'>课程类型</th>
+																<th class='text-center'>班级</th>
+																<th class='text-center'>考核方式</th>
+																<th class='text-center'>学生人数</th>
+																<th class='text-center'>总学时</th>
+																<th class='text-center'>实验学时</th>
+																<th class='text-center'>实验类型</th>
+																<th class='text-center'>工作量</th>
+															</tr>
+														</thead>
+													</table>
+												</li>
+											</ul>
+										</li>
+										<li><span class="opened" onclick="toggle(this)">实践教学</span>
+											<ul class="show">
+												<li>
+													<span class="opened" onclick="toggle(this)">您的实践工作量是： <span class="sj"></span></span>
+													<ul>
+														<br />
+														<li>
+															<span class="opened" onclick="toggle(this)">您的课程设计工作量是： <span class="ks"></span></span>
+
+															<table id="keshe" class="table table-striped table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<th class="text-center">环节</th>
+																		<th class="text-center">学分</th>
+																		<th class='text-center'>环节类别</th>
+																		<th class='text-center'>年级</th>
+																		<th class='text-center'>专业</th>
+																		<th class='text-center'>行政班级</th>
+																		<th class='text-center'>学生人数</th>
+																		<th class='text-center'>环节周数</th>
+																		<th class='text-center'>起止周数</th>
+																		<th class='text-center'>工作量</th>
+																	</tr>
+																</thead>
+															</table>
+
+														</li>
+														<li>
+															<span class="opened" onclick="toggle(this)">您的毕设工作量是： <span class="bs"></span></span>
+															<table id="bishe" class="table table-striped table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<th class="text-center">学期</th>
+																		<th class='text-center'>学院</th>
+																		<th class='text-center'>学生班级</th>
+																		<th class='text-center'>学号</th>
+																		<th class='text-center'>姓名</th>
+																		<th class='text-center'>毕业设计课题名称</th>
+																		<th class='text-center'>类型</th>
+																	</tr>
+																</thead>
+															</table>
+														</li>
+													</ul>
+
+												</li>
+
+											</ul>
+										</li>
+										<li><span class="opened" onclick="toggle(this)">额外工作量</span>
+											<ul class="show">
+												<br />
+												<li>
+													您的额外工作量是：<span></span>
+													<table id="ext_work" class="table table-striped table-bordered table-hover">
+														<thead>
+															<tr>
+																<th class="text-center">学期</th>
+																<th class='text-center'>工作量名称</th>
+																<th class='text-center'>工作量值</th>
+															</tr>
+														</thead>
+													</table>
+												</li>
+											</ul>
+										</li>
+										<li><span class="opened" onclick="toggle(this)">补贴</span>
+											<ul class="show">
+												<li>
+													您的补贴是：<span class="butie"></span>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<include file="Public:bottom" />
+<script>
+	function toggle(span) {
+		//如果当前span的class为opened
+		if(span.className == "opened") {
+			//将span的class改为closed
+			span.className = "closed";
+			//将span的下一个兄弟元素的class改为hide
+			span.nextElementSibling.className = "hide";
+		} else { //否则
+			//查找class为tree的元素下的class为opened的span，保存在变量openSpan
+			var openSpan =
+				document.querySelector(".tree .opened");
+			//			if(openSpan) { //如果openSpan找到
+			//				//将openSpan的class改为closed
+			//				openSpan.className = "closed";
+			//				//将openSpan的下一个兄弟元素的class改为hide
+			//				openSpan.nextElementSibling
+			//					.className = "hide";
+			//			}
+			//将span的class改为open
+			span.className = "opened";
+			//将span的下一个兄弟元素的class改为show
+			span.nextElementSibling.className = "show";
+		}
+	}
+</script>
+
+<script>
+	//绘制教师工作量图表
+	var list, p = false;
+	$(".get_show_type").on("click", show)
+	$(".show1").one("click", function() {
+		p = true;
+		$("#work_num_add").dataTable({
+			"ajax": "__URL__/tabledata?name=" + localStorage.u_name,
+			"paging": false,
+			"ordering": false,
+			"info": false,
+			'searching': false,
+			"scrollX": true,
+		});
+		$.ajax({
+			url: "__URL__/hesuan.php?name=" + localStorage.u_name,
+			type: "POST",
+			success: function(data) {
+				list = eval(data);
+				console.log(list);
+			}
+		})
+		window.location = "__URL__"
+	})
+
+	function show() {
+		if(p) {
+			//工作量总核算数据加载
+			var type = $("#show_type").val();
+			var width = parseInt($("body").width() / 1.68);
+			var fc = new FusionCharts({
+				type: type, //column2d、column3d、bar2d、bar3d、pie2d、pie3d、doughnut2d、doughnut3d
+				width: width,
+				height: '400',
+				dataSource: { //指定数据源
+					data: list
+				}
+			});
+			fc.render('container-teach-work-svg'); //指定渲染在哪个容器中
+
+		} else {
+			alert("请先进行核算!!!");
+		}
+
+	}
+	$.ajax({
+		url: "__URL__/canvas.php?name=" + localStorage.u_name,
+		type: "POST",
+		success: function(data) {
+			list = eval(data);
+			if(list[0].value) {
+				$("#container-teach-work-svg").html("此处是显示教师工作量核算数据的.")
+				$("#work_num_add").dataTable({
+					"ajax": "__URL__/tabledata?name=" + localStorage.u_name,
+					"paging": false,
+					"ordering": false,
+					"info": false,
+					'searching': false,
+					"scrollX": true,
+				});
+				p = true;
+
+				$("#detail_table").css("display", "block");
+
+				function loadling(val) {
+					$("#" + val).dataTable({
+						"paging": false,
+						"ordering": false,
+						"info": false,
+						'searching': false,
+						"ajax": "__URL__/" + val + "?name=" + localStorage.u_name,
+						"scrollX": true,
+					});
+				}
+				//额外工作量数据信息加载
+				loadling("ext_work");
+				//理论工作量数据信息加载
+				loadling("lilun");
+				//毕业设计数据信息加载
+				loadling("bishe");
+				//毕业设计数据信息加载
+				loadling("shiyan");
+
+				window.onload = function() {
+					$('td').addClass('text-center');
+					//  	额外工作量核算
+					var ext_val = 0;
+					$("#ext_work tbody tr td:last-child").each(function() {
+							ext_val += parseInt($(this).html());
+						})
+						//	判断浏览器的宽度
+					if(document.body.clientWidth > 1000) {
+						//毕业设计数据信息加载
+						$('#keshe').dataTable({
+							"paging": false,
+							"ordering": false,
+							"info": false,
+							'searching': false,
+							"ajax": "__URL__/keshe" + "?name=" + localStorage.u_name,
+						});
+					}else{
+						//毕业设计数据信息加载
+						$('#keshe').dataTable({
+							"paging": false,
+							"ordering": false,
+							"info": false,
+							'searching': false,
+							"ajax": "__URL__/keshe" + "?name=" + localStorage.u_name,
+							"scrollX": true,
+						});
+					}
+
+					$.ajax({
+						url: "__URL__/showdata?name=" + localStorage.u_name,
+						type: "POST",
+						success: function(data) {
+							$(".ks").html("<B style='color: chocolate;'>" + data[0].keshe + "</B>");
+							$("#ext_work").parent().prev().html("<B style='color: crimson;'>" + ext_val + "</B>");
+							//  	补贴
+							$(".butie").html("<B style='color: crimson;'>" + $("#work_num_add tbody tr td:eq(5)").html() + "</B>");
+							//  	毕设
+							$(".bs").html("<B style='color: chocolate;'>" + data[0].bishe + "</B>");
+							$(".sj").html("<B style='color: crimson;'>" + data[0].w_graduation + "</B>");
+							$(".ll").html("<B style='color: crimson;'>" + $("#work_num_add tbody tr td:eq(2)").html() + "</B>");
+							$(".sy").html("<B style='color: crimson;'>" + $("#work_num_add tbody tr td:eq(3)").html() + "</B>");
+						}
+					});
+				}
+
+				show();
+			}
+
+		}
+	});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<include file="Public:header"/>
+<!--页面显示全部-->
+<div id="wrapper">
+	<include file="Public:left"/>
+    <!--右边显示部分-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+    	<include file="Public:top"/>
+		<!--实践环节信息导入-->
+        <div id="class_info" class="right" style="display: block" ;>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12">
+                    <h2>信息导入</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">主页</a>
+                        </li>
+                        <li>
+                            <a>信息导入</a>
+                        <li>
+                            <strong>实践环节信息</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>实践环节信息导入</h5>
+
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li>
+                                            <a href="#">选项1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">选项2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2 class="text-center">批量导入实践环节说明</h2>
+                                        <b>说明:</b>
+
+                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批量导入实践环节信息,首先要下载实践环节信息模板Excel,并填写信息。然后上传文件,最后所填数据添加到数据库中。</p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="">
+                                    <h3>批量导入实践环节第一步:下载实践环节信息模板</h3>
+                                    <a href="__PUBLIC__/Download/shijian.xls" class="btn btn-danger"><span
+                                            class="glyphicon glyphicon-download-alt"></span> 实践环节信息模板下载
+                                    </a>
+                                </div>
+                                <hr/>
+                                <div class="">
+                                    <h3>批量导入实践环节第二步:上传实践环节信息Excel文件</h3>
+
+                                    <form id="uploadForm_2" method="post" action="data/file_upload.php"
+                                          enctype="multipart/form-data">
+                                        <input type="text" id="txt" name="txt"
+                                               style="height:24px; line-height:24px; border-right:none; width:200px;">
+                                        <input type="button"
+                                               onmousemove="f.style.pixelLeft=event.x-60;f.style.pixelTop=this.offsetTop;"
+                                               value="浏览" size="30" onclick="f.click()"
+                                               style="width:100px;height:26px;background:url(/jscss/demoimg/201206/bgimg.jpg) no-repeat; cursor:pointer;">
+                                        <input type="file" id="j" onchange="txt.value=this.value" name="f"
+                                               style=" position:absolute; left:202px; top:52px; heigth:26px;cursor:pointer;filter: Alpha(opacity=0);-moz-opacity:0;opacity:0;"
+                                               size="1" hidefocus>
+                                        <!--<input type="file" name="file" id="file1" />-->
+                                    </form>
+                                    <br/>
+                                    <button id="up_file_2" class="btn btn-primary">上传</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<include file="Public:bottom"/>
+
+<script src="__PUBLIC__/JS/upexel.js"></script>
+
+</body>
+
+</html>

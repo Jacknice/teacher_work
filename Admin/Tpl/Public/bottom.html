@@ -1,0 +1,48 @@
+<!-- Mainly scripts -->
+<script src="__PUBLIC__/layui/layui.js"></script>
+<script src="__JS__/jquery-2.1.1.min.js"></script>
+<script src="__JS__/bootstrap-typeahead.js"></script>
+<script src="__JS__/bootstrap.min.js?v=3.4.0"></script>
+<script src="__JS__/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__JS__/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="__JS__/sweetalert.min.js"></script>
+<script src="__JS__/nav.js"></script>
+<!--<script src="js/plugins/jeditable/jquery.jeditable.js"></script>-->
+
+<!-- svg prictur -->
+<script src="__JS__/fusioncharts.js"></script>
+<script src="__JS__/fusioncharts.charts.js"></script>
+
+<!-- Data Tables -->
+<script src="__JS__/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="__JS__/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="__JS__/hplus.js?v=2.2.0"></script>
+<script src="__JS__/plugins/pace/pace.min.js"></script>
+
+<!-- fullavatareditor -->
+<script type="text/javascript" src="__PUBLIC__/plugins/fullavatareditor/scripts/swfobject.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/fullavatareditor/scripts/fullAvatarEditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/fullavatareditor/scripts/jQuery.Cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/fullavatareditor/scripts/test.js"></script>
+
+<!--<script src="js/content.min.js?v=1.0.0"></script>-->
+<script src="__JS__/plugins/iCheck/icheck.min.js"></script>
+<script src="__JS__/plugins/summernote/summernote.min.js"></script>
+<script src="__JS__/plugins/summernote/summernote-zh-CN.js"></script>
+<script src="__JS__/chart.js"></script>
+<script src="__JS__/Admin.js"></script>
+<script>
+	(function(){
+		$.ajax({
+            url: "__APP__/Shoujian/isread?received="+localStorage.u_name,
+            type: "POST",
+            success: function (data) {
+	            $(".label-warning")[1].innerHTML=data.length;
+	            $(".label-warning")[0].innerHTML=data.length;
+            }
+        })
+	}());
+	
+</script>

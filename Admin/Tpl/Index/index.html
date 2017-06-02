@@ -1,0 +1,18 @@
+<include file="Public:header"/>
+	
+<!--页面显示全部-->
+<div id="wrapper">
+	<include file="Public:left"/>
+    <!--右边显示部分-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+    	<include file="Public:top"/>
+        	
+    </div>
+</div>
+<include file="Public:bottom"/>
+<script>
+	localStorage.upwd==null&&localStorage.uname==null?location="__APP__/Login":0;
+</script>
+</body>
+
+</html>

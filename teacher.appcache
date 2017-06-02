@@ -1,0 +1,11 @@
+CACHE MANIFEST
+# 2017-05-4 v1.0.0
+
+# 直接缓存的文件
+CACHE:/teacher_work/Teacher/Tpl
+
+
+NETWORK:
+*
+
+FALLBACK:

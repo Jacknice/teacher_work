@@ -1,0 +1,171 @@
+<include file="Public:header" />
+<!--页面显示全部-->
+<div id="wrapper">
+	<!-- 左边导航部分/.modal -->
+	<include file="Public:left" />
+	<!--右边显示部分-->
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<include file="Public:top" />
+		<!--核算图表-->
+		<div id="tubiao" class="right" style="display: block" ;>
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-12">
+					<h2>统计图</h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="index.html">主页</a>
+						</li>
+						<li>
+							<a>统计图</a>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12 data_show">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>数据展示</h5>
+
+								<div class="ibox-tools">
+									<a class="collapse-link">
+										<i class="fa fa-chevron-up"></i>
+									</a>
+									<a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+										<i class="fa fa-wrench"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-user">
+										<li>
+											<a href="#">选项1</a>
+										</li>
+										<li>
+											<a href="#">选项2</a>
+										</li>
+									</ul>
+									<a class="close-link">
+										<i class="fa fa-times"></i>
+									</a>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div id="chart-container" style="text-align: center;margin-top: 2em;position: relative;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<include file="Public:bottom" />
+<script src="__JS__/fusioncharts.theme.fint.js"></script>
+<script>
+var list,lilun,shijian,bishe;
+	$.ajax({
+			url: "__URL__/bishe",
+			type: "POST",
+			success: function(data) {
+				bishe = data.data;
+			}
+		});
+	$.ajax({
+		url: "__URL__/data",
+		type: "POST",
+		success: function(data) {
+			list = eval(data);
+		}
+	});
+	$.ajax({
+		url: "__URL__/lilun",
+		type: "POST",
+		success: function(data) {
+			lilun = data.data;
+		}
+	});
+	$.ajax({
+		url: "__URL__/shijian",
+		type: "POST",
+		success: function(data) {
+			shijian = data.data;
+		}
+	});
+	
+	window.onload=function(){
+		FusionCharts.ready(function() {
+    var revenueChart = new FusionCharts({
+        type: 'scrollcombidy2d',
+        renderAt: 'chart-container',
+        width: parseInt($("body").width() / 1.68),
+        height: '400',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "计算机学院教师工作量核算统计图表",
+                "subCaption": "(2016-2017)",
+                "captionFontSize" : "14",
+                "subcaptionFontSize" : "14",
+                "subcaptionFontBold" : "0",
+                "xAxisname": "姓名",
+                "pYAxisName": "理论、实践分值",
+                "sYAxisName": "毕设工作量分值 ",
+                "numberPrefix": "",
+                "sNumberSuffix": "",
+                "sYAxisMaxValue": "50",
+                "paletteColors" : "#0075c2,#1aaf5d,#f2c500",
+                "showAlternateHGridColor" : "0",
+                "showPlotBorder": "0",
+                "usePlotGradientColor" : "0",
+                "baseFontColor" : "#333333",
+                "baseFont" : "Helvetica Neue,Arial",
+                "showBorder" : "0",
+                "bgColor" : "#ffffff",
+                "showShadow" : "0",
+                "canvasBgColor" : "#ffffff",
+                "showCanvasBorder": "0",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0",
+                "showValues" : "1",
+                "divlineAlpha" : "100",
+                "divlineColor" : "#999999",
+                "divlineThickness" : "1",
+                "divLineIsDashed" : "1",
+                "divLineDashLen" : "1",
+                "divLineGapLen" : "1",
+                "numVisiblePlot" : "12",
+                "flatScrollBars": "1",
+                "scrollheight": "10"
+            },
+            "categories": [
+            	list
+            ],
+            "dataset": [
+                {
+                    "seriesName": "理论工作量",
+                    "data": lilun
+                }, 
+                {
+                    "seriesName": "实践工作量",
+                    "renderAs": "area",
+                    "showValues": "0",
+                    "data": shijian
+                }, 
+                {
+                    "seriesName": "毕设工作量",
+                    "parentYAxis": "S",
+                    "renderAs": "line",
+                    "showValues": "0",
+                    "data": bishe
+                }
+            ]
+        }
+    }).render();
+    
+});
+
+	}
+</script>
+</body>
+
+</html>

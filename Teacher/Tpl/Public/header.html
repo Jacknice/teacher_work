@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html manifest="teacher.appcache">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>教师工作量核算系统</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+	
+	<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="__PUBLIC__/Images/favicon.ico"/>
+    <link href="__CSS__/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__CSS__/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link rel="stylesheet" href="__CSS__/sweetalert.css"/>
+
+    <!-- Data Tables -->
+    <link href="__CSS__/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    <link href="__CSS__/style.css?v=2.2.0" rel="stylesheet">
+    <style>
+        .glyphicon,.add-on{cursor: pointer;}
+    </style>
+</head>
+
+<body>
+<!-- 修改密码模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div id='pwd_alert' class="alert alert-warning" style="display: none;">
+                    <a href="#" class="close" data-dismiss="alert">
+                        &times;
+                    </a>
+                </div>
+                <div>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">新密码：</label>
+
+                            <div class="col-lg-8">
+                                <input type="password" placeholder="新密码" id="new_pwd" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">确认新密码：</label>
+
+                            <div class="col-lg-8">
+                                <input type="password" placeholder="确认新密码" id="ok_new_pwd" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id='close'>关闭</button>
+                <button type="button" class="btn btn-primary" id="update_upwd">提交更改</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

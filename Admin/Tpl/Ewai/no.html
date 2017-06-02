@@ -1,0 +1,149 @@
+<include file="Public:header"/>
+<!--页面显示全部-->
+<div id="wrapper">
+	<include file="Public:left"/>
+    <!--右边显示部分-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+    	<include file="Public:top"/>
+    	<!--额外信息审核--未审核-->
+        <div id="extra_info_nopass" class="right" style="display: block;">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>额外信息审核表</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">主页</a>
+                        </li>
+                        <li>
+                            <a>额外信息审核</a>
+                        <li>
+                            <strong>未审核</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>未审核表格</h5>
+
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li>
+                                            <a href="#">选项1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">选项2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="">
+                                    <a onclick="ext_work_pass(this);" href="javascript:void(0);"
+                                       class="btn btn-primary ">通过</a>&nbsp;
+                                    <a onclick="ext_work_pass(this);" href="javascript:void(0);"
+                                       class="btn btn-danger ">不通过</a>
+                                </div>
+                                <table id="ext_work_ispass" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <lable><input data-check="check_ext_work" type="checkbox"/>全选</lable>
+                                        </th>
+                                        <th class="text-center">学期</th>
+                                        <th class="text-center">教师姓名</th>
+                                        <th class='text-center'>工作量名称</th>
+                                        <th class='text-center'>工作量值</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th class="text-center">全选</th>
+                                        <th class="text-center">学期</th>
+                                        <th class="text-center">教师姓名</th>
+                                        <th class='text-center'>工作量名称</th>
+                                        <th class='text-center'>工作量值</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<include file="Public:bottom"/>
+
+<script>
+	//额外工作量审核数据加载
+    $("#ext_work_ispass").dataTable({
+        "columnDefs": [{
+            "targets": 0,
+            "data": null,
+            "defaultContent": "<input type='checkbox' class='check_ext_work'/>",
+        }],
+        "ajax": "__URL__/do_data_no",
+    });
+    //额外工作量通过是否
+function ext_work_pass(self){
+    var p_or_np=self.innerHTML;
+    p_or_np=p_or_np=="通过"?"已加入核算":"未通过";
+    var class_array = [];
+    var uname_array=[];
+    $("input[class='check_ext_work']").prop("checked", function (i, val) {
+        if (val) {
+            var data = $(this).parent().siblings("td:eq(2)").text();
+            if (class_array.indexOf(data)) {
+                class_array.push(data);
+            }
+            var uname = $(this).parent().siblings("td:eq(1)").text();
+            
+                uname_array.push(uname);
+            
+        }
+    });
+    var class_str = class_array + "";
+    var uname_str = uname_array + "";
+    if (class_str) {
+        $.ajax({
+            url: "__URL__/classIsPass",
+            data: "work_name=" + class_str+"&y_or_no="+p_or_np+"&uname="+uname_str,
+            type: "POST",
+            success: function (data) {
+                if(data==1){
+                    alert("数据已审核!!!");
+                    window.location="__URL__/no";
+                }else{
+                    alert("未知错误,请联系管理员!!!");
+                }
+            }
+        });
+    }
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<include file="Public:header"/>	
+<!--页面显示全部-->
+<div id="wrapper">
+    <!-- 左边导航部分/.modal -->
+    <include file="Public:left"/>		
+    <!--右边显示部分-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <include file="Public:top"/>
+        <!--收件箱-->
+        <div id="mailbox" class="right" style="display: block;">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>邮箱</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">主页</a>
+                        </li>
+                        <li>
+                            <a>邮箱</a>
+                        </li>
+                        <li>
+                            <strong>收件箱</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-sm-12 animated fadeInRight">
+                        <div class="mail-box-header">
+
+                            <form method="get" action="index.html" class="pull-right mail-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm" name="search"
+                                           placeholder="搜索邮件标题，正文等">
+
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            搜索
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <h2>
+                                收件箱 (16)
+                            </h2>
+
+                            <div class="mail-tools tooltip-demo m-t-md">
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>
+                                    </button>
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i>
+                                    </button>
+
+                                </div>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left"
+                                        title="刷新邮件列表"><i class="fa fa-refresh"></i> 刷新
+                                </button>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+                                        title="标为已读"><i class="fa fa-eye"></i>
+                                </button>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+                                        title="标为重要"><i class="fa fa-exclamation"></i>
+                                </button>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+                                        title="标为垃圾邮件"><i class="fa fa-trash-o"></i>
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="mail-box">
+
+                            <table class="table table-hover table-mail">
+                                <tbody>
+                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--查看邮件-->
+        <div id="mail_detail" class="right" style="display: none;">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>邮箱</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">主页</a>
+                        </li>
+                        <li>
+                            <a>邮箱</a>
+                        </li>
+                        <li>
+                            <strong>收件箱</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12 animated fadeInRight">
+                            <div class="mail-box-header">
+                                <h2>
+                                    查看邮件
+                                </h2>
+
+                                <div class="mail-tools tooltip-demo m-t-md">
+                                    <h3>
+                                        <span class="font-noraml">主题： </span>
+                                    </h3>
+                                    <h5>
+                                        <span class="pull-right font-noraml"></span>
+                                        <span class="font-noraml">发件人： </span>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="mail-box">
+
+
+                                <div class="mail-body">
+
+                                </div>
+                                
+                                <div class="mail-body text-right tooltip-demo">
+                                    <a href="__APP__/Xiexin" class="btn btn-sm btn-white" title="back"><i class="fa fa-reply"></i>
+                                        回复</a>
+                                    <a class="btn btn-sm btn-white" title="next"><i
+                                            class="fa fa-arrow-right"></i> 下一封</a>
+                                    <button title="" data-placement="top" data-toggle="tooltip"
+                                            data-original-title="删除邮件" class="btn btn-sm btn-white"><i
+                                            class="fa fa-trash-o"></i> 删除
+                                    </button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:bottom"/>
+<script type="text/javascript">
+//发送邮件数据到客户端
+    (function(){
+        var received=localStorage.u_name;
+        $.ajax({
+                url: "__URL__/received?received="+received,
+                type: "POST",
+                success: function (data) {
+//              	$(".label-warning")[1].innerHTML=data.length;
+//              	$(".label-warning")[0].innerHTML=data.length;
+                	var html="";
+                	for(var i=0;i<data.length;i++){
+                		var time=parseInt(data[i].sendtime);
+                		var nDate = new Date(time);   //直接将毫秒数当参数传进去。
+						var date=nDate.toLocaleTimeString();
+                        if(data[i].isread=="是"){
+                            html+=`<tr class="read">
+                                    <td class="check-mail">
+                                        <a title="已读" class="glyphicon glyphicon-eye-open"></a>
+                                    </td>`;
+                        }else{
+                            html+=`<tr class="unread">
+                                     <td class="check-mail">
+                                        <a title="未读" class="glyphicon glyphicon-eye-close"></a>
+                                    </td>
+                            `;
+                        }
+                		html+=`
+                                    <td class="mail-ontact"><a>${data[i].send}</a>
+                                    </td>
+                                    <td class="mail-subject"><a>${data[i].theme}</a>
+                                    </td>
+                                    <td class=""><i class="fa fa-paperclip"></i>
+                                    </td>
+                                    <td class="text-right mail-date">${date}</td>
+                                </tr>`;
+                	}
+                	$(".table-mail>tbody").html(html);
+                }
+            });
+    }());
+    //点击进入邮件详情页
+    $(".table-mail").delegate("tr[class$='read']","click",emailDetail);
+    function emailDetail(){
+        if($(this).attr("class")=="unread"){
+            $(this).attr("class","read").children(".check-mail").html("").html('<a title="已读" class="glyphicon glyphicon-eye-open"></a>');
+        };
+        var sendName=$(this).children(".mail-ontact").children().html();
+        var sendObject=$(this).children(".mail-subject").children().html();
+        $("#mailbox").css("display","none");
+        $.ajax({
+            url: "__URL__/emailDetail?sN="+sendName+"&sO="+sendObject,
+            type: "POST",
+            success: function (data) {
+                var html="";
+                var html1="";
+                var time=parseInt(data[0].sendtime);
+                var nDate = new Date(time);   //直接将毫秒数当参数传进去。
+                var date=nDate.toLocaleDateString();
+                var shijian=nDate.toLocaleTimeString().slice(2);
+                var wh="";
+                var Time=date.split("/");
+                var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                var dateStr = Time[0]+"-"+Time[1]+"-"+Time[2];
+                var myDate = new Date(Date.parse(dateStr.replace(/-/g, "/")));
+                hour = nDate.getHours()
+                if(hour < 6){wh="凌晨好！"}
+                else if (hour < 9){wh="早上"}
+                else if (hour < 12){wh="上午"}
+                else if (hour < 14){wh="中午"}
+                else if (hour < 17){wh="下午"}
+                else if (hour < 19){wh="傍晚"}
+                else if (hour < 22){wh="晚上"}
+                else {wh="夜里好！"}
+                html+=` <h3>
+                                <span class="font-noraml">主题： </span><a href="#">${data[0].theme}</a>
+                            </h3>
+                            <h5>
+                                <span class="pull-right font-noraml">${Time[0]}年${Time[1]}月${Time[2]}日(${weekDay[myDate.getDay()]})${wh}${shijian}</span>
+                                <span class="font-noraml">发件人： </span><a href="#">${data[0].send}</a>
+                            </h5>`;
+                html1=`${data[0].content}`;
+
+                $(".mail-tools:eq(1)").html(html);
+                $(".mail-box:eq(1)").children(".mail-body:eq(0)").html(html1);
+            }
+        });
+        $("#mail_detail").css("display","block");
+    }
+
+//删除邮件
+    $("button[data-original-title='删除邮件']").on("click",delectEmail);
+    $("a[data-original-title='删除邮件']").on("click",delectEmail);
+    function delectEmail(){
+        var theme=$(".mail-tools:eq(1)").children("h3").children('a').html();
+        var send=$(".mail-tools:eq(1)").children("h5").children('a').html();
+        $.ajax({
+            url: "__URL__/delemail?send="+send+"&theme="+theme+"&num="+2,
+            dataType : 'text',
+            type: "POST",
+            success: function (data) {
+                if(data==1){
+                    alert("邮件删除成功!!!");
+                    window.location = '__URL__';
+                }
+            }
+        });
+    };
+</script>
+</body>
+
+</html>
